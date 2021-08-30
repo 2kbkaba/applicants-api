@@ -1,0 +1,19 @@
+{
+  "name": "applicants-api",
+  "version": "1.0.0",
+  "description": "Appkicants management api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Project",
+    "Applicants"
+  ],
+  "author": "Kaoussou Kaba BALDE",
+  "license": "ISC",
+  "dependencies": {
+    "cuid": "^2.1.8",
+    "mongodb": "^4.1.1"
+  }
+}
