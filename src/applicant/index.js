@@ -1,6 +1,6 @@
-import Id from '../Id'
-import buildMakeApplicant from './applicant'
+const Id = require('../Id')
+const buildMakeApplicant = require('./applicant')
 
 const makeApplicant = buildMakeApplicant({ Id })
 
-export default makeApplicant
+module.exports = makeApplicant

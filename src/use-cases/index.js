@@ -9,5 +9,5 @@ const applicantService = Object.freeze(
   }
 )
 
-export default applicantService
-export { addApplicant }
+module.exports = applicantService
+module.exports = { addApplicant }

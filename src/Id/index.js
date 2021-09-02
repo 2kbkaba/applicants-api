@@ -1,4 +1,4 @@
-import cuid from 'cuid'
+const cuid = require('cuid')
 
 const Id = Object.freeze(
   {
@@ -7,4 +7,4 @@ const Id = Object.freeze(
   }
 )
 
-export default Id
+module.exports = Id

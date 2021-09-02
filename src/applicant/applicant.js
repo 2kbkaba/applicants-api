@@ -1,8 +1,8 @@
-export default function buildMakeApplicant({ Id }) {
+function buildMakeApplicant({ Id }) {
   return function makeApplicant(
     {
       id = Id.makeId(),
-      userId,
+      userId = Id.makeId(),
       firstname,
       lastname,
       phones,
@@ -11,6 +11,18 @@ export default function buildMakeApplicant({ Id }) {
       birthplace,
       genderId,
       cid,
+      location,
+      address,
+      maritalStatus,
+      legalForm,
+      professionalSituation,
+      bankAccounts,
+      publicFundingReceived,
+      currentCredits,
+      completed,
+      handicaps,
+      levelOfStudy,
+      contactLanguage,
       createdAt = Date.now(),
       updatedAt = Date.now(),
     } = {}
@@ -58,9 +70,23 @@ export default function buildMakeApplicant({ Id }) {
         getBirthplace: () => birthplace,
         getGenderId: () => genderId,
         getCid: () => cid,
+        getLocation: () => location,
+        getAddress: () => address,
+        getMaritalStatus: () => maritalStatus,
+        getLegalForm: () => legalForm,
+        getProfessionalSituation: () => professionalSituation,
+        getBankAccounts: () => bankAccounts,
+        getPublicFundingReceived: () => publicFundingReceived,
+        getCurrentCredits: () => currentCredits,
+        getCompleted: () => completed,
+        getHandicaps: () => handicaps,
+        getLevelOfStudy: () => levelOfStudy,
+        getContactLanguage: () => contactLanguage,
         getCreatedAt: () => createdAt,
         getUpdatedAt: () => updatedAt
       }
     )
   }
 }
+
+module.exports = buildMakeApplicant

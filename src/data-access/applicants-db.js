@@ -1,6 +1,6 @@
-import Id from '../Id'
+const Id = require('../Id')
 
-export default function makeApplicantsDb ({ makeDb }) {
+function makeApplicantsDb ({ makeDb }) {
   return Object.freeze(
     {
       insert,
@@ -8,9 +8,9 @@ export default function makeApplicantsDb ({ makeDb }) {
     }
   )
 
-  async function checkApplicant ({ cid, phone }) {
+  async function checkApplicant ({ cid, phones }) {
     const db = await makeDb()
-    const query = { $or: [ { "cid.number": cid.number }, { "phone.mobile": phone.mobile } ] }
+    const query = { $or: [ { "cid.number": cid.number }, { "phones.mobile": phones.mobile } ] }
     const result = await db.collection('applicants').find(query)
     const found = await result.toArray()
     if (found.length === 0) {
@@ -25,7 +25,10 @@ export default function makeApplicantsDb ({ makeDb }) {
     const result = await db
       .collection('applicant')
       .insertOne({ _id, ...applicantInfo })
+    console.log(result)
     const { _id: id, ...insertedInfo } = result.ops[0]
     return { id, ...insertedInfo }
   }
 }
+
+module.exports = makeApplicantsDb

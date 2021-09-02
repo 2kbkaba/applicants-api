@@ -1,17 +1,16 @@
-import makeApplicantsDb from './applicants-db'
+const makeApplicantsDb = require('./applicants-db')
 const { MongoClient } = require('mongodb')
 
 // Connection URL
-const url = process.env.DM_COMMENTS_DB_URL
-const dbName = process.env.DM_COMMENTS_DB_NAME
+const url = process.env.DM_APPLICANTS_DB_URL
+const dbName = process.env.DM_APPLICANTS_DB_NAME
 const client = new MongoClient(url)
 
-export async function makeDb () {
-  if (client.isConnected()) {
-    await client.connect()
-  }
+async function makeDb () {
+  await client.connect()
+  console.log('Connected successfully to db server');
   return client.db(dbName)
 }
-
+module.exports = makeDb
 const applicantsDb = makeApplicantsDb({ makeDb })
-export default applicantsDb
+module.exports = applicantsDb
