@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 require('dotenv').config()
-const { notFound, postApplicant } = require('./controllers')
+const { notFound, postApplicant, getApplicants } = require('./controllers')
 const makeCallback = require('./express-callback')
 
 const apiRoot = process.env.DM_BASE_URL
@@ -13,6 +13,7 @@ app.use((_, res, next) => {
   next()
 })
 app.post('/applicants', makeCallback(postApplicant))
+app.get('/applicants', makeCallback(getApplicants))
 app.use(makeCallback(notFound))
 
 app.listen(3001, () => {

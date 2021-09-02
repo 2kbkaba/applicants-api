@@ -3,10 +3,20 @@ const Id = require('../Id')
 function makeApplicantsDb ({ makeDb }) {
   return Object.freeze(
     {
+      findAll,
       insert,
       checkApplicant
     }
   )
+
+  async function findAll () {
+    const db = await makeDb()
+    const result = await db.collection('applicants').find()
+    return (await result.toArray()).map(({ _id: id, ...found }) => ({
+      id,
+      ...found
+    }))
+  }
 
   async function checkApplicant ({ cid, phones }) {
     const db = await makeDb()
@@ -23,7 +33,7 @@ function makeApplicantsDb ({ makeDb }) {
   async function insert ({ id: _id = Id.makeId(), ...applicantInfo }) {
     const db = await makeDb()
     const result = await db
-      .collection('applicant')
+      .collection('applicants')
       .insertOne({ _id, ...applicantInfo })
     console.log(result)
     const { _id: id, ...insertedInfo } = result.ops[0]

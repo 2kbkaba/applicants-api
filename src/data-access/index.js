@@ -8,7 +8,6 @@ const client = new MongoClient(url)
 
 async function makeDb () {
   await client.connect()
-  console.log('Connected successfully to db server');
   return client.db(dbName)
 }
 module.exports = makeDb
