@@ -30,17 +30,26 @@ function buildMakeApplicant({ Id }) {
     if (!Id.isValidId(id)) {
       throw new Error('Applicant must have a valid id.')
     }
-    if (!userId) {
+    if (!Id.isValidId(userId)) {
       throw new Error('Applicant must have a valid userId.')
     }
     if (!firstname) {
       throw new Error('Applicant must have a firstname.')
     }
+    if (!(typeof (firstname) === 'string') || firstname.trim().length < 2) {
+      throw new Error('Firstname must be a string of at least 2 characters.')
+    }
     if (!lastname) {
       throw new Error('Applicant must have a lastname.')
     }
+    if (!(typeof (lastname) === 'string') || lastname.trim().length < 2) {
+      throw new Error('Lastname must be a string of at least 2 characters.')
+    }
     if (!phones) {
       throw new Error('Applicant must have phones numbers.')
+    }
+    if (!(typeof (phones) === 'object' && phones instanceof Object && phones.mobile.trim())) {
+      throw new Error('Phones must be an object with at least a mobile attribute.')
     }
     if (!countryId) {
       throw new Error('Applicant must have a countryId.')

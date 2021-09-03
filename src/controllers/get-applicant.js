@@ -5,7 +5,7 @@ function makeGetApplicant ({ listApplicant }) {
     }
     try {
       const applicant = await listApplicant({
-        applicantId: httpRequest.query.applicantId
+        applicantId: httpRequest.params.applicantId
       })
       return {
         headers,

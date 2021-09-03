@@ -3,10 +3,12 @@ const Id = require('../Id')
 function makeApplicantsDb ({ makeDb }) {
   return Object.freeze(
     {
+      checkApplicant,
       findAll,
       findById,
       insert,
-      checkApplicant
+      update,
+      remove
     }
   )
 
@@ -19,9 +21,9 @@ function makeApplicantsDb ({ makeDb }) {
     }))
   }
 
-  async function findById ({ id: _id }) {
+  async function findById ({ applicantId }) {
     const db = await makeDb()
-    const result = await db.collection('applicants').find({ _id })
+    const result = await db.collection('applicants').find({ _id: applicantId })
     const found = await result.toArray()
     if (found.length === 0) {
       return null
@@ -50,6 +52,20 @@ function makeApplicantsDb ({ makeDb }) {
     console.log(result)
     const { _id: id, ...insertedInfo } = result.ops[0]
     return { id, ...insertedInfo }
+  }
+
+  async function update ({ id: _id, ...applicantInfo }) {
+    const db = await makeDb()
+    const result = await db
+      .collection('applicants')
+      .updateOne({ _id }, { $set: { ...applicantInfo } })
+    return result.modifiedCount > 0 ? { id: _id, ...applicantInfo } : null
+  }
+
+  async function remove ({ id: _id }) {
+    const db = await makeDb()
+    const result = await db.collection('applicants').deleteOne({ _id })
+    return result.deletedCount
   }
 }
 
